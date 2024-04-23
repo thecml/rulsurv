@@ -1,10 +1,6 @@
 # rulsurv
 Code for: A probabilistic estimation of remaining useful life from censored time-to-event data (2024)<br />
 
-License
---------
-To view the license for this work, visit https://github.com/thecml/ball-bearing-survival/blob/main/LICENSE
-
 Requirements
 ----------------------
 To run the models, please refer to [Requirements.txt](https://github.com/thecml/rulsurv/blob/main/requirements.txt).
