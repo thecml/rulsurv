@@ -1,6 +1,5 @@
 # rulsurv
 Code for: A probabilistic estimation of remaining useful life from censored time-to-event data (2024)<br />
-This paper uses the XJTU-SY dataset: https://biaowang.tech/xjtu-sy-bearing-datasets/
 
 License
 --------
