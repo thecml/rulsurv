@@ -13,7 +13,7 @@ Training and prediction
 - Make directories `mkdir results` and `mkdir plots`
 - Make the timeseries dataset by running `python src/make_dataset.py`
 - Run cross-validation by running `python src/run_cross_validation.py`
-- Predict ISD by running `python src/plot_isd_curves.py`
+- Predict ISDs by running `python src/plot_isd_curves.py`
 - Refer to `config.py` for model configuration and paths.
 
 Citation
