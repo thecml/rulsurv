@@ -18,4 +18,14 @@ Training and prediction
 
 Citation
 --------
-TBA
+```
+@misc{lillelund_probabilistic_2024,
+    title={A probabilistic estimation of remaining useful life from censored time-to-event data}, 
+    author={Christian Marius Lillelund and Fernando Pannullo and
+            Morten Opprud Jakobsen and Manuel Morante and Christian Fischer Pedersen},
+    year={2024},
+    eprint={2405.01614},
+    archivePrefix={arXiv},
+    primaryClass={cs.LG}
+}
+```
