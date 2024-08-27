@@ -176,6 +176,7 @@ def main():
                         mae_hinge = lifelines_eval.mae(method="Hinge")
                         mae_margin = lifelines_eval.mae(method="Margin")
                         mae_pseudo = lifelines_eval.mae(method="Pseudo_obs")
+                        mae_uncensored = lifelines_eval.mae(method="Uncensored")
                         median_survs = lifelines_eval.predict_time_from_curve(predict_median_survival_time)
                         d_calib = lifelines_eval.d_calibration()[0]
                     except:
@@ -190,6 +191,8 @@ def main():
                         mae_margin = np.nan
                     if mae_pseudo > 1000:
                         mae_pseudo = np.nan
+                    if mae_uncensored > 1000:
+                        mae_uncensored = np.nan
                     
                     if condition == 0:
                         cond_name = "C1"
@@ -205,7 +208,8 @@ def main():
                     # Calucate C-cal for BNN model
                     if model_name == "BNNSurv":
                         xte = cvi[0].to_numpy()
-                        surv_probs = model.predict_survival(xte, event_times=continuous_times, n_post_samples=N_POST_SAMPLES)
+                        surv_probs = model.predict_survival(xte, event_times=continuous_times,
+                                                            n_post_samples=N_POST_SAMPLES)
                         credible_region_sizes = np.arange(0.1, 1, 0.1)
                         surv_times = torch.from_numpy(surv_probs)
                         coverage_stats = {}
@@ -222,12 +226,15 @@ def main():
                         c_calib = 0
                     
                     try:
-                        print(f"Evaluated {cond_name} - {model_name} - {pct} - {round(mae_hinge)} - {round(mae_margin)} - {round(mae_pseudo)} - {round(true_mae)} - {round(ls_mae)}")
+                        print(f"Evaluated {cond_name} - {model_name} - {pct} - {round(mae_hinge)} - {round(mae_margin)}" +
+                              f" - {round(mae_pseudo)} - {round(mae_uncensored)} - {round(true_mae)} - {round(ls_mae)}")
                     except:
                         print("Print failed, probably has NaN in results...")
                         
-                    res_sr = pd.Series([cond_name, model_name, pct, mae_hinge, mae_margin, mae_pseudo, true_mae, ls_mae, d_calib, c_calib],
-                                        index=["Condition", "ModelName", "CensoringLevel", "MAEHinge", "MAEMargin", "MAEPseudo", "MAETrue", "LSMAE", "DCalib", "CCalib"])
+                    res_sr = pd.Series([cond_name, model_name, pct, mae_hinge, mae_margin,
+                                        mae_pseudo, mae_uncensored, true_mae, ls_mae, d_calib, c_calib],
+                                        index=["Condition", "ModelName", "CensoringLevel", "MAEHinge", "MAEMargin",
+                                               "MAEPseudo", "MAEUncensored", "MAETrue", "LSMAE", "DCalib", "CCalib"])
                     model_results = pd.concat([model_results, res_sr.to_frame().T], ignore_index=True)
                     model_results.to_csv(f"{cfg.RESULTS_DIR}/model_results.csv")
 

@@ -18,3 +18,4 @@ DATASET_NAME = "xjtu"
 if __name__ == "__main__":
     builder = Builder(DATASET_NAME, bootstrap=0)
     builder.build_new_dataset()
+    
