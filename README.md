@@ -8,7 +8,7 @@ The code was tested in a virtual environment with `Python 3.9`.
 
 Training and prediction
 --------
-- Download the XJTU-SY dataset from [Dropbox](https://www.dropbox.com/scl/fi/bpfoygq7xe1yjvl0w6esn/data.zip?rlkey=ao00hr46to3u6iy9patvlmcyr&st=ndy6cwc6&dl=0)
+- Download the XJTU-SY dataset from [Dropbox](https://www.dropbox.com/scl/fi/ffneg1y7122jp5axlebpv/rulsurv_data.zip?rlkey=vd4yszi8vexhl7yaib4yfue53&st=gz1knl1b&dl=0)
 - Unzip the data inside the main folder to create /data
 - Make directories `mkdir results` and `mkdir plots`
 - Make the timeseries dataset by running `python src/make_dataset.py`
@@ -18,4 +18,14 @@ Training and prediction
 
 Citation
 --------
-TBA
+```
+@misc{lillelund_probabilistic_2024,
+    title={A probabilistic estimation of remaining useful life from censored time-to-event data}, 
+    author={Christian Marius Lillelund and Fernando Pannullo and
+            Morten Opprud Jakobsen and Manuel Morante and Christian Fischer Pedersen},
+    year={2024},
+    eprint={2405.01614},
+    archivePrefix={arXiv},
+    primaryClass={cs.LG}
+}
+```
