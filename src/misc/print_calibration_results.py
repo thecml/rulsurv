@@ -1,3 +1,6 @@
+import sys, os
+sys.path.append(os.getcwd() + "\\src")
+
 import pandas as pd
 import config as cfg
 import numpy as np

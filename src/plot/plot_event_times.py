@@ -1,3 +1,6 @@
+import sys, os
+sys.path.append(os.getcwd() + "\\src")
+
 import pandas as pd
 import config as cfg
 from tools.formatter import Formatter
@@ -18,6 +21,7 @@ BEARING_IDS = [1, 2, 3, 4, 5]
 if __name__ == "__main__":
     for condition in cfg.CONDITIONS:
         for pct in cfg.CENSORING_LEVELS:
+            exit(0)
             dl = DataLoader(DATASET_NAME, AXIS, condition).load_data()
             data = pd.DataFrame()
             for bearing_id in BEARING_IDS:
@@ -35,8 +39,8 @@ if __name__ == "__main__":
             plt.xlabel("Time (min)")
             plt.ylabel("Number of occurrences")
             plt.tight_layout()
-            ax.grid(which='minor', alpha=0.2)
-            ax.grid(which='major', alpha=0.5)
+            ax.grid(which='minor', alpha=0.25)
+            ax.grid(which='major', alpha=0.25)
             plt.savefig(f'{cfg.PLOTS_DIR}/event_times_C{condition+1}_cens_{int(pct*100)}.pdf',
                         format='pdf', bbox_inches="tight")
             plt.close()

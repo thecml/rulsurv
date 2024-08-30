@@ -1,3 +1,6 @@
+import sys, os
+sys.path.append(os.getcwd() + "\\src")
+
 import numpy as np
 import pandas as pd
 import config as cfg
@@ -41,7 +44,7 @@ if __name__ == "__main__":
             plt.xlabel("Time (min)")
             plt.ylabel("Survival probability S(t)")
             plt.tight_layout()
-            plt.grid()
+            plt.grid(alpha=0.25)
             plt.legend()
             plt.savefig(f'{cfg.PLOTS_DIR}/kaplan_meier_C{condition+1}_cens_{int(pct*100)}.pdf', format='pdf', bbox_inches="tight")
             plt.close()
