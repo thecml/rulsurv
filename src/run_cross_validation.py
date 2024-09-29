@@ -151,6 +151,9 @@ def main():
                     else:
                         surv_preds = Survival.predict_survival_function(model, cvi[0], continuous_times)
                         
+                    # Ensure proper survival curve
+                    surv_preds[0] = 1
+                        
                     # Fit LASSO for comparasion
                     ls = Lasso(alpha=1.0, random_state=0)
                     x_train_ls = train_data.loc[train_data['Event'] == True].drop(['Event', 'Survival_time', 'TrueTime'], axis=1)
@@ -161,17 +164,9 @@ def main():
                     y_pred_ls = ls.predict(x_test_ls)
                     ls_mae = mean_absolute_error(y_test_ls, y_pred_ls)
                     
-                    # Sanitize
-                    surv_preds = surv_preds.fillna(0).replace([np.inf, -np.inf], 0).clip(lower=0.001)
-                    bad_idx = surv_preds[surv_preds.iloc[:,0] < 0.5].index # check we have a median
-                    sanitized_surv_preds = surv_preds.drop(bad_idx).reset_index(drop=True)
-                    sanitized_cvi = np.delete(cvi[1], bad_idx)
-                    true_times = np.array(test_data['TrueTime'])
-                    sanitized_true_times = np.delete(true_times, bad_idx)
-                    
                     # Calculate scores
                     try:
-                        lifelines_eval = LifelinesEvaluator(sanitized_surv_preds.T, sanitized_cvi['Survival_time'], sanitized_cvi['Event'],
+                        lifelines_eval = LifelinesEvaluator(surv_preds.T, cvi[1]['Survival_time'], cvi[1]['Event'],
                                                             ti[1]['Survival_time'], ti[1]['Event'])
                         mae_hinge = lifelines_eval.mae(method="Hinge")
                         mae_margin = lifelines_eval.mae(method="Margin")
@@ -199,8 +194,9 @@ def main():
                         cond_name = "C3"
                         
                     # Calculate true MAE
-                    event_indicators = np.array([1] * len(sanitized_true_times))
-                    true_mae = mean_error(median_survs, sanitized_true_times, event_indicators, method='Uncensored')
+                    true_times = np.array(test_data['TrueTime'])
+                    event_indicators = np.array([1] * len(true_times))
+                    true_mae = mean_error(median_survs, true_times, event_indicators, method='Uncensored')
                     
                     # Calucate C-cal for BNN model
                     if model_name == "BNNSurv":
@@ -215,19 +211,22 @@ def main():
                             upper_outputs = torch.kthvalue(surv_times, k=N_POST_SAMPLES - drop_num, dim=0)[0]
                             coverage_stats[percentage] = coverage(continuous_times, upper_outputs, lower_outputs,
                                                                   cvi[1]["Survival_time"], cvi[1]["Event"])
-                        coverage_data = [list(coverage_stats.keys()), list(coverage_stats.values())]
-                        _, pvalue = chisquare(coverage_data)
-                        c_calib = pvalue[0]
+                        expected_percentages = coverage_stats.keys()
+                        observed_percentages = coverage_stats.values()
+                        expected = [x / sum(expected_percentages) * 100 for x in expected_percentages] # normalize
+                        observed = [x / sum(observed_percentages) * 100 for x in observed_percentages]
+                        _, p_value = chisquare(f_obs=observed, f_exp=expected)
+                        c_calib = p_value
                     else:
                         c_calib = 0
-                    
+
                     try:
                         print(f"Evaluated {cond_name} - {model_name} - {pct} - {round(mae_hinge)} - {round(mae_margin)} - {round(mae_pseudo)} - {round(true_mae)} - {round(ls_mae)}")
                     except:
                         print("Print failed, probably has NaN in results...")
                         
                     res_sr = pd.Series([cond_name, model_name, pct, mae_hinge, mae_margin, mae_pseudo, true_mae, ls_mae, d_calib, c_calib],
-                                        index=["Condition", "ModelName", "CensoringLevel", "MAEHinge", "MAEMargin", "MAEPseudo", "MAETrue", "LSMAE", "DCalib", "CCalib"])
+                                       index=["Condition", "ModelName", "CensoringLevel", "MAEHinge", "MAEMargin", "MAEPseudo", "MAETrue", "LSMAE", "DCalib", "CCalib"])
                     model_results = pd.concat([model_results, res_sr.to_frame().T], ignore_index=True)
                     model_results.to_csv(f"{cfg.RESULTS_DIR}/model_results.csv")
 
