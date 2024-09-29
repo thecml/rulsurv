@@ -203,10 +203,10 @@ class BNNSurv(BaseRegressor):
     """
     def get_hyperparams(self, condition):
         if condition == 0:
-            return {'batch_size' : 32, 'learning_rate' : 0.01, 'num_epochs': 100, 'layers': [16]}
+            return {'batch_size' : 32, 'learning_rate' : 0.001, 'num_epochs': 100, 'layers': [16]}
         elif condition == 1:
-            return {'batch_size' : 64, 'learning_rate' : 0.01, 'num_epochs': 100, 'layers': [32]}
+            return {'batch_size' : 64, 'learning_rate' : 0.001, 'num_epochs': 100, 'layers': [32]}
         elif condition == 2:
-            return {'batch_size' : 128, 'learning_rate' : 0.01, 'num_epochs': 100, 'layers': [64]}
+            return {'batch_size' : 128, 'learning_rate' : 0.001, 'num_epochs': 100, 'layers': [64]}
         else:
             raise ValueError("Invalid condition for XJTU-SY dataset, choose {0, 1, 2}")

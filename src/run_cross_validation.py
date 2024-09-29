@@ -10,6 +10,7 @@ from sksurv.util import Surv
 from tools.regressors import CoxPH, CoxBoost, RSF, MTLR, BNNSurv
 from tools.formatter import Formatter
 from tools.evaluator import LifelinesEvaluator
+from tools.Evaluations.util import make_monotonic
 from utility.survival import Survival, make_event_times, coverage, make_time_bins, make_stratification_label
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
@@ -153,6 +154,8 @@ def main():
                         
                     # Ensure proper survival curve
                     surv_preds[0] = 1
+                    surv_preds = surv_preds.fillna(0).replace([np.inf, -np.inf], 0).clip(lower=0.001)
+                    surv_preds = make_monotonic(surv_preds, continuous_times)
                         
                     # Fit LASSO for comparasion
                     ls = Lasso(alpha=1.0, random_state=0)
