@@ -1,8 +1,11 @@
+import sys, os
+sys.path.append(os.getcwd() + "\\src")
+
 import pandas as pd
 import config as cfg
 import numpy as np
 
-N_DECIMALS = 0
+N_DECIMALS = 1
 
 if __name__ == "__main__":
     path = cfg.RESULTS_DIR
@@ -13,7 +16,7 @@ if __name__ == "__main__":
         text = ""            
         text += f"& LASSO & "
         for cens in censoring:
-            ls_mae = mae_true = results.loc[(results['Condition'] == cond) & (results['CensoringLevel'] == cens)]['LSMAE']
+            ls_mae = results.loc[(results['Condition'] == cond) & (results['CensoringLevel'] == cens)]['LSMAE']
 
             mean_ls_mae = f"%.{N_DECIMALS}f" % round(np.mean(ls_mae.dropna()), N_DECIMALS)
             std_ls_mae = f"%.{N_DECIMALS}f" % round(np.std(ls_mae.dropna()), N_DECIMALS)
