@@ -155,7 +155,6 @@ def main():
                     # Ensure proper survival curve
                     surv_preds[0] = 1
                     surv_preds = surv_preds.fillna(0).replace([np.inf, -np.inf], 0).clip(lower=0.001)
-                    surv_preds = make_monotonic(surv_preds, continuous_times)
                         
                     # Fit LASSO for comparasion
                     ls = Lasso(alpha=1.0, random_state=0)
