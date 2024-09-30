@@ -10,7 +10,7 @@ N_DECIMALS = 1
 def calculate_improvement(metric, baseline):
     mae_improvement = round(((float(metric) - float(baseline)) / float(baseline)) * 100, N_DECIMALS)
     mae_sign = "+" if mae_improvement > 0 else ""
-    mae_color = "red" if mae_improvement > 0 else "green"
+    mae_color = "dimRed" if mae_improvement > 0 else "dimGreen"
     mae_improvement_text = f"({mae_sign}{mae_improvement})"
     mae_improvement_text = "\\textcolor{" + f"{mae_color}" + "}" + "{" + f"{mae_improvement_text}" + "}"
     return mae_improvement_text
