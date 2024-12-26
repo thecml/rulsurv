@@ -53,7 +53,7 @@ N_POST_SAMPLES = 100
 BEARING_IDS = cfg.BEARING_IDS
 
 if __name__ == "__main__":
-    for condition in [1]: # Use C1
+    for condition in [0]: # Use C1
         dl = DataLoader(DATASET_NAME, AXIS, condition).load_data()
         data = pd.DataFrame()
         for bearing_id in BEARING_IDS:
@@ -129,10 +129,10 @@ if __name__ == "__main__":
                 axes[i].plot(surv_probs_g1_mean, linewidth=2, label=r"$S(t|$" + f"{feature} $<{st})$", color="C0")
                 axes[i].plot(surv_probs_g2_mean, linewidth=2, label=r"$S(t|$" + f"{feature} $\geq{st})$", color="C1")
                 axes[i].set_xlabel("Time (min)")
-                axes[i].set_ylabel("Survival probability S(t)")
+                axes[i].set_ylabel("Event probability S(t)")
                 axes[i].legend(loc='upper right')
                 axes[i].grid(True)
-            plt.savefig(f'{cfg.PLOTS_DIR}/group_survival_{feature}_C{condition+1}.pdf',
+            plt.savefig(f'{cfg.PLOTS_DIR}/group_survival_{feature}_C{condition}.pdf',
                         format='pdf', bbox_inches="tight")
             plt.close()
         

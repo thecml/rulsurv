@@ -130,7 +130,7 @@ if __name__ == "__main__":
             extra = Rectangle((0, 0), 1, 1, fc="w", fill=False, edgecolor='none', linewidth=0)
             axes[plot_idx, condition].legend([p1[0], p2, p3, extra], [p1[0].get_label(), p2.get_label(), p3.get_label(), text], loc='upper right')
             if condition == 0:
-                axes[plot_idx, condition].set_ylabel("Survival probability S(t)")
+                axes[plot_idx, condition].set_ylabel("Event probability S(t)")
             axes[plot_idx, condition].grid(True)
     plt.savefig(f'{cfg.PLOTS_DIR}/isd.pdf', format='pdf', bbox_inches="tight")
     plt.close()

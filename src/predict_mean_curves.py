@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import src.config as cfg
+import config as cfg
 from sksurv.util import Surv
 from tools.formatter import Formatter
 from xgbse.non_parametric import calculate_kaplan_vectorized
@@ -148,12 +148,12 @@ if __name__ == "__main__":
         fig = plt.figure(figsize=(6, 4))
         plt.plot(km_mean.columns, km_mean.iloc[0], 'k--', linewidth=2, alpha=0.5, label=r"$\mathbb{E}[S(t)]$ Kaplan-Meier", color="black")
         plt.plot(continuous_times, np.mean(cph_surv_func, axis=0), label=r"$\mathbb{E}[S(t|\bm{X})]$ CoxPH", linewidth=2)
-        plt.plot(continuous_times, np.mean(coxboost_surv_func, axis=0), label=r"$\mathbb{E}[S(t|\bm{X})]$ CoxBoost", linewidth=2)
+        plt.plot(continuous_times, np.mean(coxboost_surv_func, axis=0), label=r"$\mathbb{E}[S(t|\bm{X})]$ GBSA", linewidth=2)
         plt.plot(continuous_times, np.mean(rsf_surv_func, axis=0), label=r"$\mathbb{E}[S(t|\bm{X})]$ RSF", linewidth=2)
         plt.plot(discrete_times, np.mean(mtlr_surv_func, axis=0), label=r"$\mathbb{E}[S(t|\bm{X})]$ MTLR", linewidth=2)
         plt.plot(continuous_times, np.mean(bnn_surv_func, axis=0), label=r"$\mathbb{E}[S(t|\bm{X})]$ BNNSurv", linewidth=2)
         plt.xlabel("Time (min)")
-        plt.ylabel("Survival probability S(t)")
+        plt.ylabel("Event probability S(t)")
         plt.tight_layout()
         plt.grid()
         plt.legend()

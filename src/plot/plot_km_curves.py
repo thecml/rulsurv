@@ -42,7 +42,7 @@ if __name__ == "__main__":
             plt.plot(km_mean.columns, km_mean.iloc[0], 'k--', linewidth=2, alpha=1, label=r"$\mathbb{E}[S(t)]$ Kaplan-Meier", color="black")
             plt.fill_between(km_mean.columns, km_low.iloc[0], km_high.iloc[0], alpha=0.2, color="black")
             plt.xlabel("Time (min)")
-            plt.ylabel("Survival probability S(t)")
+            plt.ylabel("Event probability S(t)")
             plt.tight_layout()
             plt.grid(alpha=0.25)
             plt.legend()
