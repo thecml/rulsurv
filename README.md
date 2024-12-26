@@ -1,6 +1,8 @@
 # rulsurv
 Code for: A probabilistic estimation of remaining useful life from censored time-to-event data (2024)<br />
 
+Preprint: https://arxiv.org/abs/2405.01614 **(Under review)**
+
 Requirements
 ----------------------
 To run the models, please refer to [Requirements.txt](https://github.com/thecml/rulsurv/blob/main/requirements.txt).
