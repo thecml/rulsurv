@@ -1,5 +1,5 @@
 # rulsurv
-Code for: A probabilistic estimation of remaining useful life from censored time-to-event data (2024)<br />
+Code for: "RULSurv: A probabilistic survival-based method for early censoring-aware prediction of remaining useful life in ball bearings (2025)"<br />
 
 Preprint: https://arxiv.org/abs/2405.01614 **(Under review)**
 
@@ -20,14 +20,13 @@ Training and prediction
 
 Citation
 --------
+If you find this paper useful in your work, please consider citing it:
+ 
 ```
-@misc{lillelund_probabilistic_2024,
-    title={A probabilistic estimation of remaining useful life from censored time-to-event data}, 
-    author={Christian Marius Lillelund and Fernando Pannullo and
-            Morten Opprud Jakobsen and Manuel Morante and Christian Fischer Pedersen},
-    year={2024},
-    eprint={2405.01614},
-    archivePrefix={arXiv},
-    primaryClass={cs.LG}
+@article{lillelund_rulsurv_2025,
+  title={RULSurv: A probabilistic survival-based method for early censoring-aware prediction of remaining useful life in ball bearings}, 
+  author={Christian Marius Lillelund and Fernando Pannullo and Morten Opprud Jakobsen and Manuel Morante and Christian Fischer Pedersen},
+  journal={preprint, arXiv:2405.01614},
+  year={2025},
 }
 ```
