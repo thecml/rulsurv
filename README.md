@@ -20,13 +20,4 @@ Training and prediction
 
 Citation
 --------
-If you find this paper useful in your work, please consider citing it:
- 
-```
-@article{lillelund_rulsurv_2025,
-  title={RULSurv: A probabilistic survival-based method for early censoring-aware prediction of remaining useful life in ball bearings}, 
-  author={Christian Marius Lillelund and Fernando Pannullo and Morten Opprud Jakobsen and Manuel Morante and Christian Fischer Pedersen},
-  journal={preprint, arXiv:2405.01614},
-  year={2025},
-}
-```
+If you find this paper useful in your work, please consider citing it.
